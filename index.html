@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Null-T Share | منصة المشاركة</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 520px;
+      width: 100%;
+      padding: 32px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    h1 { font-size: 1.75rem; margin-bottom: 10px; }
+    p { color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+    .status-box {
+      background: var(--bg);
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 24px;
+      text-align: right;
+      font-size: 0.9rem;
+    }
+    .status-box div { margin-bottom: 8px; }
+    .status-box div:last-child { margin-bottom: 0; }
+    .code {
+      font-family: monospace;
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--accent);
+      direction: ltr;
+      display: inline-block;
+    }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      background: var(--accent);
+      color: #0f172a;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:hover { background: var(--accent-hover); color: #fff; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: transparent; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <span class="badge">● النظام متصل وجاهز</span>
+    <h1>Null-T Share</h1>
+    <p>منصة مشاركة الملفات، القوائم، المانجا، والفيديوهات السريعة.</p>
+
+    <div class="status-box">
+      <div><strong>النطاق الحالي:</strong> <span class="code" id="domain-name">...</span></div>
+      <div><strong>معاملات الرابط (?):</strong> <span class="code" id="query-info">لا يوجد</span></div>
+      <div><strong>تجزئة الصفحة (#):</strong> <span class="code" id="hash-info">لا يوجد</span></div>
+    </div>
+
+    <div class="actions">
+      <a href="?type=video&id=demo1#ep=1" class="btn">تجربة رابط فيديو</a>
+      <a href="?type=manga&id=demo2#ch=5" class="btn btn-outline">تجربة رابط مانجا</a>
+      <a href="?" class="btn btn-outline">إعادة ضبط</a>
+    </div>
+  </div>
+
+  <script>
+    function updateInfo() {
+      // عرض النطاق للتأكد من نجاح الربط
+      document.getElementById('domain-name').textContent = window.location.hostname || 'localhost';
+
+      // قراءة معاملات ?
+      const search = window.location.search;
+      document.getElementById('query-info').textContent = search ? search : 'لا يوجد';
+
+      // قراءة معاملات #
+      const hash = window.location.hash;
+      document.getElementById('hash-info').textContent = hash ? hash : 'لا يوجد';
+    }
+
+    // تحديث البيانات عند تحميل الصفحة أو عند تغير الـ Hash
+    updateInfo();
+    window.addEventListener('hashchange', updateInfo);
+  </script>
+
+</body>
+</html>
